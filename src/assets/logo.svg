@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="40" viewBox="0 0 120 40" role="img" aria-labelledby="logoTitle">
+  <title id="logoTitle">FoodHub</title>
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#F5A623" />
+      <stop offset="1" stop-color="#E08A1A" />
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="8" fill="url(#g)" />
+  <text x="22" y="25" font-family="Inter, sans-serif" font-weight="800" font-size="20" fill="#0D0D0F" text-anchor="middle">F</text>
+  <g transform="translate(50,24)">
+    <text font-family="Inter, sans-serif" font-weight="800" font-size="18" fill="#E8E6E0">FoodHub</text>
+    <text y="14" font-family="Inter, sans-serif" font-weight="600" font-size="10" fill="#888580">PREMIUM FOOD OPS</text>
+  </g>
+</svg>

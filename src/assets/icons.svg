@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <!-- Tabler-style minimal icons as symbols -->
+  <symbol id="icon-search" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5">
+    <path d="M21 21l-4.35-4.35" stroke-linecap="round" stroke-linejoin="round" />
+    <circle cx="11" cy="11" r="6" stroke-linecap="round" stroke-linejoin="round" />
+  </symbol>
+
+  <symbol id="icon-cart" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5">
+    <path d="M6 6h15l-1.5 9h-12z" stroke-linecap="round" stroke-linejoin="round" />
+    <circle cx="10" cy="20" r="1" />
+    <circle cx="18" cy="20" r="1" />
+  </symbol>
+
+  <symbol id="icon-truck" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5">
+    <rect x="1" y="3" width="13" height="13" rx="2" />
+    <path d="M14 8h4l3 3v5" />
+  </symbol>
+
+  <symbol id="icon-clock" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5">
+    <circle cx="12" cy="12" r="8" />
+    <path d="M12 8v5l3 1" />
+  </symbol>
+
+  <symbol id="icon-user" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5">
+    <circle cx="12" cy="8" r="3" />
+    <path d="M5.5 20a6.5 6.5 0 0113 0" />
+  </symbol>
+
+  <symbol id="icon-chart" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5">
+    <path d="M3 3v18h18" />
+    <path d="M9 13v6" />
+    <path d="M15 9v10" />
+    <path d="M21 5v14" />
+  </symbol>
+
+  <symbol id="icon-chevron-right" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5">
+    <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+  </symbol>
+</svg>

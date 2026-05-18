@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --fh-bg: #000000;
+  --fh-card: #141414;
+  --fh-elevated: #1F1F1F;
+  --fh-border: #333333;
+  --fh-text: #FFFFFF;
+  --fh-muted: #999999;
+  --fh-accent: #FF9900;
+  --fh-danger: #E24B4A;
+  --fh-success: #3B6D11;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, 'DM Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background: var(--fh-bg);
+  color: var(--fh-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.glass-card {
+  background: var(--fh-card);
+  border: 1px solid var(--fh-border);
+  @apply rounded-lg shadow-xl;
+}
+
+.section-shell {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+/* Utility focus styles */
+button:focus, input:focus, a:focus {
+  outline: 3px solid rgba(245,166,35,0.14);
+  outline-offset: 2px;
+}
+
+/* Scrollbar thin */
+*::-webkit-scrollbar { height: 8px; width: 8px }
+*::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 999px }
