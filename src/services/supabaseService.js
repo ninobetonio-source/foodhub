@@ -104,29 +104,27 @@ export async function createOrder(orderPayload, items = []) {
     productId: await resolveProductUuid(item)
   })));
 
-  const unresolvedItem = resolvedItems.find(({ productId }) => !productId);
-  if (unresolvedItem) {
-    return {
-      data: order,
-      error: {
-        message: `Unable to resolve a valid product ID for "${unresolvedItem.item?.name ?? 'cart item'}".`
-      }
-    };
-  }
-
-  const orderItems = resolvedItems.map(({ item, productId }) => ({
+  const resolvedOrderItems = resolvedItems
+    .filter(({ productId }) => productId)
+    .map(({ item, productId }) => ({
     order_id: order.id,
     product_id: productId,
     product_name: item.name,
     price: item.price,
     quantity: item.quantity
-  }));
+    }));
 
-  if (orderItems.length > 0) {
-    const { error: itemsError } = await supabase.from('order_items').insert(orderItems);
+  const unresolvedItems = resolvedItems.filter(({ productId }) => !productId).map(({ item }) => item?.name ?? 'cart item');
+
+  if (resolvedOrderItems.length > 0) {
+    const { error: itemsError } = await supabase.from('order_items').insert(resolvedOrderItems);
     if (itemsError) {
       return { data: order, error: itemsError };
     }
+  }
+
+  if (unresolvedItems.length > 0) {
+    console.warn('Some checkout items could not be linked to products and were saved without product_id:', unresolvedItems);
   }
 
   return { data: order, error: null };
