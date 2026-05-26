@@ -2,6 +2,36 @@ import { supabase } from '../lib/supabase';
 
 const productSelect = '*, categories(name, slug)';
 
+function looksLikeUuid(value) {
+  return typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
+}
+
+async function resolveProductUuid(item) {
+  const directId = String(item?.product_id ?? item?.id ?? '').trim();
+
+  if (looksLikeUuid(directId)) {
+    return directId;
+  }
+
+  const slug = String(item?.slug ?? '').trim();
+  if (slug) {
+    const { data } = await supabase.from('products').select('id').eq('slug', slug).maybeSingle();
+    if (data?.id) {
+      return data.id;
+    }
+  }
+
+  const name = String(item?.name ?? '').trim();
+  if (name) {
+    const { data } = await supabase.from('products').select('id').eq('name', name).maybeSingle();
+    if (data?.id) {
+      return data.id;
+    }
+  }
+
+  return null;
+}
+
 export async function getProducts(filters = {}) {
   let query = supabase.from('products').select(productSelect).eq('is_active', true).order('created_at', { ascending: false });
 
@@ -69,9 +99,24 @@ export async function createOrder(orderPayload, items = []) {
     return { data: null, error: orderError };
   }
 
-  const orderItems = items.map((item) => ({
+  const resolvedItems = await Promise.all(items.map(async (item) => ({
+    item,
+    productId: await resolveProductUuid(item)
+  })));
+
+  const unresolvedItem = resolvedItems.find(({ productId }) => !productId);
+  if (unresolvedItem) {
+    return {
+      data: order,
+      error: {
+        message: `Unable to resolve a valid product ID for "${unresolvedItem.item?.name ?? 'cart item'}".`
+      }
+    };
+  }
+
+  const orderItems = resolvedItems.map(({ item, productId }) => ({
     order_id: order.id,
-    product_id: item.product_id ?? String(item.id ?? '').split('::')[0],
+    product_id: productId,
     product_name: item.name,
     price: item.price,
     quantity: item.quantity
